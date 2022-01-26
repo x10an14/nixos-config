@@ -3,6 +3,7 @@
   description = "x10an4's NixOS Live ISO image";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
   };
 
   outputs = inputs@{
