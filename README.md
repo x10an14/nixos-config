@@ -6,6 +6,10 @@ This repo is my NixOS flake'd config, initiated/inspired by: https://hoverbear.o
 ```
 sudo nixos-rebuild switch --flake ".#$(hostname)"
 ```
+### How to test build of system
+```
+nix build .#nixosConfigurations.initialSystem.config.system.build.toplevel
+```
 
 ## How to make ISO and install on new machine
 ```

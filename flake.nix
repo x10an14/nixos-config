@@ -49,7 +49,10 @@
       initialSystem = nixpkgs.lib.nixosSystem {
         inherit (baseConfig) system;
         modules = baseConfig.modules ++ [
+          {nixpkgs.pkgs = pkgs;}
+
           # Modules for installed systems only.
+          ./config/encrypted-boot.nix
         ];
       };
     };
