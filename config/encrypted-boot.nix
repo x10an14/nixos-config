@@ -25,20 +25,20 @@ in {
   fileSystems = builtins.ListToAttrs (
     builtins.mapAttrs (
       mountPoint: btrfsDevice: {
-        name = "${mountPoint}";
+        name = mountPoint;
         value = {
+          device = fsDevices.root.unlockedUuid;
           fsType = "btrfs";
           options = [ "subvol=${btrfsDevice.subvol}" ] ++ btrfsMountOptions;
-        } // btrfsDevice;
+        } // removeAttrs btrfsDevice [ "subvol" ];
       }
-    ) // {
-      "/efi" = {
-        device = fsDevices.efiPartitionUuid;
-        fsType = "vfat";
-      };
-    }
-  ) btrfsDevices;
+    )
+  ) btrfsDevices // {
+    "/efi" = {
+      device = fsDevices.efiPartitionUuid;
+      fsType = "vfat";
+    };
+  };
 
-
-  swapDevices = [ { device = fsDevices.swapUnlocked; } ];
+  swapDevices = [ { device = fsDevices.swap.unlockedUuid; } ];
 }
