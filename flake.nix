@@ -41,6 +41,7 @@
         inherit (baseConfig) system;
         modules = baseConfig.modules ++ [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ./iso/configuration.nix
         ];
       };
       initialSystem = nixpkgs.lib.nixosSystem {
