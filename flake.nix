@@ -3,13 +3,20 @@
   description = "x10an4's NixOS Live ISO image";
   inputs.nixos.url = "github:nixos/nixpkgs/nixos-21.11";
 
-  outputs = { self, nixos }: {
+  outputs = {
+    self
+    , nixos
+    , ...
+  }: let
+    systemArch = "x86_64-linux";
+  in {
     nixosConfigurations = let
       # Shared base configuration.
       baseConfig = {
-        system = "x86_64-linux";
+        system = systemArch;
         modules = [
           # Common system modules...
+          ./base/common/nix-store.nix
         ];
       };
     in {
