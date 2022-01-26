@@ -34,6 +34,8 @@
 
           # Common system modules...
           ./base/common/nix-store.nix
+          ./base/common/sudo.nix
+          ./base/common/yubikeys-gpg.nix
         ];
       };
     in {
