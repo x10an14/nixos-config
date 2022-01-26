@@ -9,7 +9,7 @@ sudo nixos-rebuild switch --flake ".#$(hostname)"
 
 ## How to make ISO and install on new machine
 ```
-nix build .#nixosConfiguration.installIso.config.system.build.isoImage
+nix build .#nixosConfigurations.installIso.config.system.build.isoImage
 test "$(ls result/iso/*.iso | wc -w)" -eq "1" # Should return returncode 0
 cp -vi result/iso/*.iso /dev/sd<usb drive letter>
 ```
