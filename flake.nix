@@ -53,7 +53,7 @@
           {nixpkgs.pkgs = pkgs;}
 
           # Modules for installed systems only.
-          ./config/encrypted-boot.nix
+          ./base/common/btrfs-devices.nix
         ];
       };
       bits-laptop = nixpkgs.lib.nixosSystem {
@@ -62,7 +62,7 @@
           {nixpkgs.pkgs = pkgs;}
 
           # Modules for installed systems only.
-          ./config/encrypted-boot.nix
+          ./machine-configurations/bits-laptop.nix
           inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
         ];
       };
