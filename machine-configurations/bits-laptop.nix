@@ -26,7 +26,7 @@
   boot.kernelModules = [ "kvm-intel" ];
   hardware = {
     enableAllFirmware = true;
-    enableRedistrubutableFirmware = true;
+    enableRedistributableFirmware = true;
     video.hidpi.enable = lib.mkDefault true;
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
