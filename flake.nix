@@ -36,6 +36,8 @@
           # Common system modules...
           ./base/common/networking.nix
           ./base/common/nix-store.nix
+          ./base/common/packages.nix
+          ./base/common/programs.nix
           ./base/common/shell-environment.nix
           ./base/common/sudo.nix
           ./base/common/x10an14.nix
