@@ -5,7 +5,7 @@ This repo is duplicated at several githosting services, the "master" repo reside
 
 ## How to update system
 ```
-sudo nixos-rebuild switch --flake ".#$(hostname)"
+sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)
 ```
 ### How to test build of system
 ```
@@ -22,6 +22,6 @@ cp -vi result/iso/*.iso /dev/sd<usb drive letter>
 ### On new machine
 From booted live media, after formatting of disks/set-up is complete
 ```
-sudo nixos-install --flake .#initialSystem
+sudo nixos-install --flake /mnt/etc/nixos#<hostname>
 ```
 
