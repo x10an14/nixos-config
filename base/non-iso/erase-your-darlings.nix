@@ -4,7 +4,21 @@ let
   awk = "${pkgs.gawk}/bin/awk";
   btrfs = "${pkgs.btrfs-progs}/bin/btrfs";
   mountbin = "${pkgs.mount}/bin";
+  btrfs-root-diff = pkgs.writeShellApplication {
+    name = "show-btrfs-root-snapshot-diff.sh";
+    runtimeInputs = with pkgs; [
+      btrfs-progs
+      sudo
+      coreutils
+      mount
+    ];
+    text = builtins.readFile ./show-btrfs-root-snapshot-diff.sh;
+  };
 in {
+  # Make a tool to see what's not yet persisted available for all via PATH
+  environment.systemPackages = [
+    btrfs-root-diff
+  ];
   security.sudo.extraConfig = ''
     # rollback results in sudo lectures after each reboot
     Defaults lecture = never
