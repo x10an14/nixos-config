@@ -2,8 +2,8 @@
   # Inspired/stolen from: https://hoverbear.org/blog/nix-flake-live-media/
   description = "x10an4's NixOS Live ISO image";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "flake:nixpkgs";
     nixos-hardware.url = "flake:nixos-hardware";
   };
 
