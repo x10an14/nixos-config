@@ -24,6 +24,7 @@
       inherit systemArch overlay-unstable;
       system = systemArch;
       overlays = [ overlay-unstable ];
+      config = { allowUnfree = true; };
     };
   in {
     nixosConfigurations = let
@@ -51,6 +52,7 @@
         inherit (baseConfig) system;
         modules = baseConfig.modules ++ [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ./machine-configurations/iso.nix
         ];
       };
       bits-laptop = nixpkgs.lib.nixosSystem {
@@ -60,7 +62,6 @@
 
           # Modules for installed systems only.
           ./machine-configurations/bits-laptop.nix
-          ./base/non-iso/erase-your-darlings.nix
           inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
         ];
       };

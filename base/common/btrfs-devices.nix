@@ -102,21 +102,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # TODO: Decide if this block should live here or get moved somewhere else
-    # it is necessary for this to compile at time of this commit.
-    boot.loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/efi";
-      };
-      grub = {
-        enable = true;
-        device = "nodev";
-        version = 2;
-        efiSupport = true;
-        enableCryptodisk = true;
-      };
-    };
     fileSystems = builtins.mapAttrs (
       mountPoint: btrfsDevice:
         removeAttrs btrfsDevice [ "subvol" ] // {

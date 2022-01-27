@@ -3,6 +3,8 @@
   imports = [
     ../base/common/btrfs-devices.nix
     ../base/non-iso/initrd-ssh.nix
+    ../base/non-iso/erase-your-darlings.nix
+    ../base/non-iso/systemd-boot.nix
   ];
 
   # Machine unique software config
