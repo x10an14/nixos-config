@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixos-hardware.url = "flake:nixos-hardware";
   };
 
   outputs = inputs@{
@@ -43,7 +44,7 @@
         inherit (baseConfig) system;
         modules = baseConfig.modules ++ [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ./iso/configuration.nix
+          ./machine-configurations/iso.nix
         ];
       };
       initialSystem = nixpkgs.lib.nixosSystem {
@@ -53,6 +54,16 @@
 
           # Modules for installed systems only.
           ./config/encrypted-boot.nix
+        ];
+      };
+      bits-laptop = nixpkgs.lib.nixosSystem {
+        inherit (baseConfig) system;
+        modules = baseConfig.modules ++ [
+          {nixpkgs.pkgs = pkgs;}
+
+          # Modules for installed systems only.
+          ./config/encrypted-boot.nix
+          inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
         ];
       };
     };
