@@ -1,6 +1,7 @@
 # x10an14's NixOS config
 
 This repo is my NixOS flake'd config, initiated/inspired by: https://hoverbear.org/blog/nix-flake-live-media/
+This repo is duplicated at several githosting services, the "master" repo resides over at: https://git.sr.ht/~x10an14/nixos-config/
 
 ## How to update system
 ```
