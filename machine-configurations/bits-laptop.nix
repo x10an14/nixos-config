@@ -2,10 +2,14 @@
 {
   imports = [
     ../base/common/btrfs-devices.nix
+    ../base/non-iso/initrd-ssh.nix
   ];
 
   # Machine unique software config
   networking.hostName = "bits-laptop";
+
+  # Allow SSH connections during boot to utilize ethernet network card
+  boot.initrd.kernelModules = [ "e1000e" ];
 
   # Machine unique hardware config
   boot.kernelModules = [ "kvm-intel" ];
