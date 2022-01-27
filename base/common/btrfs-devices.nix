@@ -30,12 +30,18 @@ let
         example = "/dev/disk/by-label/DISK";
         type = types.nullOr nonEmptyWithoutTrailingSlash;
       };
+      neededForBoot = mkOption {
+        example = true;
+        default = false;
+        type = types.bool;
+      };
       subvol = mkOption {
         default = null;
         example = "@subvol";
         type = nonEmptyStr;
       };
     };
+    config.mountPoint = mkDefault name;
   };
 in {
   options = {
@@ -78,16 +84,17 @@ in {
           "/home" = { subvol = "@home"; };
           "/nix" = { subvol = "@nix"; };
           "/persist" = { subvol = "@persist"; neededForBoot = true; };
-          "/var/log" = { subvol = "@log"; neededForBoot = true; };
+          "/var/log" = { subvol = "@log"; };
         };
         example = literalExpression ''
           {
-            "/" = { subvol = "@"; neededForBoot = true; };
+            "/" = { subvol = "@"; };
             "/containercow" = { subvol = "@containercow"; };
             "/home" = { subvol = "@home"; };
             "/nix" = { subvol = "@nix"; };
             "/persist" = { subvol = "@persist"; neededForBoot = true; };
-            "/var/log" = { subvol = "@log"; neededForBoot = true; };
+            "/var/log" = { subvol = "@log"; };
+            "/mnt/meh" = { subvol = "@meh"; device = "/dev/disk/by-uuid/FOO"; neededForBoot = true; };
           };
         '';
       };
@@ -111,18 +118,19 @@ in {
       };
     };
     fileSystems = builtins.mapAttrs (
-      mountPoint: btrfsDevice: {
-        device = if btrfsDevice.device != null then btrfsDevice.device else fsDevices.root.unlockedUuid;
-        fsType = "btrfs";
-        options = [ "subvol=${btrfsDevice.subvol}" ] ++ btrfsMountOptions;
-      } // removeAttrs btrfsDevice [ "subvol" ]
+      mountPoint: btrfsDevice:
+        removeAttrs btrfsDevice [ "subvol" ] // {
+          device = if btrfsDevice.device != null then btrfsDevice.device else cfg.root.unlockedDeviceId;
+          fsType = "btrfs";
+          options = [ "subvol=${btrfsDevice.subvol}" ] ++ btrfsMountOptions;
+        }
     ) cfg.subvolumes // {
       "/efi" = {
-        device = fsDevices.efiPartitionUuid;
+        device = cfg.efiPartitionDeviceId;
         fsType = "vfat";
       };
     };
 
-    swapDevices = [ { device = btrfsDevices.swap.unlockedUuid; } ];
+    swapDevices = [ { device = cfg.swap.unlockedDeviceId; } ];
   };
 }
