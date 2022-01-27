@@ -12,15 +12,24 @@
     hostName = "bits-laptop";
     interfaces = {
       enp0s31f6.useDHCP = true;
+      wlp3s0.useDHCP = true;
     };
   };
 
   # Allow SSH connections during boot to utilize ethernet network card
-  boot.initrd.kernelModules = [ "e1000e" ];
+  boot.initrd = {
+    kernelModules = [ "e1000e" ];
+    availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  };
 
   # Machine unique hardware config
   boot.kernelModules = [ "kvm-intel" ];
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  hardware = {
+    enableAllFirmware = true;
+    enableRedistrubutableFirmware = true;
+    video.hidpi.enable = lib.mkDefault true;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  };
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   btrfsDevices = {
