@@ -34,6 +34,8 @@
           {nixpkgs.pkgs = pkgs;}
 
           # Common system modules...
+          ./base/common/git.nix
+          ./base/common/neovim.nix
           ./base/common/networking.nix
           ./base/common/nix-store.nix
           ./base/common/packages.nix
