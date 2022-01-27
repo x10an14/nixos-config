@@ -8,7 +8,12 @@
   ];
 
   # Machine unique software config
-  networking.hostName = "bits-laptop";
+  networking = {
+    hostName = "bits-laptop";
+    interfaces = {
+      enp0s31f6.useDHCP = true;
+    };
+  };
 
   # Allow SSH connections during boot to utilize ethernet network card
   boot.initrd.kernelModules = [ "e1000e" ];
