@@ -34,8 +34,11 @@
           {nixpkgs.pkgs = pkgs;}
 
           # Common system modules...
+          ./base/common/networking.nix
           ./base/common/nix-store.nix
+          ./base/common/shell-environment.nix
           ./base/common/sudo.nix
+          ./base/common/x10an14.nix
           ./base/common/yubikeys-gpg.nix
         ];
       };
@@ -44,16 +47,6 @@
         inherit (baseConfig) system;
         modules = baseConfig.modules ++ [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ./machine-configurations/iso.nix
-        ];
-      };
-      initialSystem = nixpkgs.lib.nixosSystem {
-        inherit (baseConfig) system;
-        modules = baseConfig.modules ++ [
-          {nixpkgs.pkgs = pkgs;}
-
-          # Modules for installed systems only.
-          ./base/common/btrfs-devices.nix
         ];
       };
       bits-laptop = nixpkgs.lib.nixosSystem {

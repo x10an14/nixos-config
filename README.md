@@ -8,7 +8,7 @@ sudo nixos-rebuild switch --flake ".#$(hostname)"
 ```
 ### How to test build of system
 ```
-nix build .#nixosConfigurations.initialSystem.config.system.build.toplevel
+nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel
 ```
 
 ## How to make ISO and install on new machine
