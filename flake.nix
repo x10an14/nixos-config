@@ -60,6 +60,7 @@
 
           # Modules for installed systems only.
           ./machine-configurations/bits-laptop.nix
+          ./base/non-iso/erase-your-darlings.nix
           inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
         ];
       };
