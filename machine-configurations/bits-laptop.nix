@@ -1,4 +1,4 @@
-{config, lib, ...}:
+{config, lib, pkgs, ...}:
 {
   imports = [
     ../base/common/btrfs-devices.nix
@@ -23,7 +23,10 @@
   };
 
   # Machine unique hardware config
-  boot.kernelModules = [ "kvm-intel" ];
+  boot = {
+    kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
   hardware = {
     enableRedistributableFirmware = true;
     video.hidpi.enable = lib.mkDefault true;
