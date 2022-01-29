@@ -35,6 +35,7 @@
           {nixpkgs.pkgs = pkgs;}
 
           # Common system modules...
+          ./base/common/fwupd.nix
           ./base/common/git.nix
           ./base/common/neovim.nix
           ./base/common/networking.nix

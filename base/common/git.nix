@@ -29,8 +29,9 @@
             "gitlab:"
           ];
         };
-        "git@git.sr.ht:" = {
+        "git@git.sr.ht:~" = {
           insteadOf = [
+            "sh:"
             "sr.ht:"
           ];
         };

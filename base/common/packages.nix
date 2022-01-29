@@ -9,7 +9,7 @@
     # Misc. tools that are nice to have
     wget curl
     htop tree pstree
-    shellcheck gnused
+    shellcheck gnused lshw
     lsof file pciutils killall
 
     # Niceties for terminal interactions
@@ -22,6 +22,9 @@
     tmux
     unzip
     yq
+
+    # Must have
+    home-manager
 
     # Packages which I install with additional extensions/plugins
     (pass-nodmenu.withExtensions (ps: with ps; [
@@ -39,7 +42,6 @@
     brightnessctl
     efibootmgr
     upower
-    fwupd
     lm_sensors
   ];
 }
