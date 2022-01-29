@@ -22,10 +22,6 @@
     availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   };
 
-  # Sway specific stuffs (fixes that must be system based - instead of home-manager based)
-  # Below line is necessary due to: https://github.com/NixOS/nixpkgs/issues/143365
-  security.pam.services.swaylock = {};
-
   # Machine unique hardware config
   boot.kernelModules = [ "kvm-intel" ];
   hardware = {

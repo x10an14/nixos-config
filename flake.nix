@@ -43,10 +43,17 @@
           ./base/common/packages.nix
           ./base/common/programs.nix
           ./base/common/shell-environment.nix
-          ./base/common/sound.nix
           ./base/common/sudo.nix
           ./base/common/x10an14.nix
           ./base/common/yubikeys-gpg.nix
+        ];
+      };
+      workstationConfig = {
+        inherit (baseConfig) system;
+        modules = baseConfig.modules ++ [
+          {nixpkgs.pkgs = pkgs;}
+          ./base/workstations/sound.nix
+          ./base/workstations/sway.nix
         ];
       };
     in {
@@ -58,8 +65,8 @@
         ];
       };
       bits-laptop = nixpkgs.lib.nixosSystem {
-        inherit (baseConfig) system;
-        modules = baseConfig.modules ++ [
+        inherit (workstationConfig) system;
+        modules = workstationConfig.modules ++ [
           {nixpkgs.pkgs = pkgs;}
 
           # Modules for installed systems only.
