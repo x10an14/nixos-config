@@ -22,10 +22,21 @@
             set undofile
         endif
 
-        " https://askubuntu.com/a/202077
+        " Make nvim remember code folding
+        autocmd BufWinLeave *.* mkview
+        autocmd BufWinEnter *.* silent loadview
+
+        " https://askubuntu.com/a/202077 -> make nvim reopen file on line open last time
         if has("autocmd")
           au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
         endif
+
+        " Activate rainbow parens/brackets
+        let g:rainbow_active = 1
+        " Use my own preferred color scheme
+        let g:rainbow_conf = {
+        \  'ctermfgs': ['blue', 'darkred', 'green', 'magenta', 'cyan', 'yellow']
+        \}
 
         filetype indent plugin on
         set background=dark
